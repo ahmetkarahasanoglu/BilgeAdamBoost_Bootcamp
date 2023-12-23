@@ -25,7 +25,7 @@ public class Runner {
 		ogrenci2.dogumTarihi = 2001;
 		
 	/* NOTE: In order to have access to properties and methods of a class,
-	 * we need to create and object from that class:
+	 * we need to create an object from that class:
 	 *   Ogrenci ogr = new Ogrenci();
 	 *   ogr.ad = "Ahmet";
 	 */

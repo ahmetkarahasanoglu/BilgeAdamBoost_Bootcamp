@@ -1,8 +1,9 @@
 * METHODS OF STRING CLASS:
-.charAt(), .indexOf(), .lastIndexOf(), .substring(), .replace(), .split() .equals(), .equalsIgnoreCase, .toLowerCase(), .toUpperCase(),
+.charAt(), .indexOf(), .lastIndexOf(), .substring(), .replace(), .split(), .startsWith(), .endsWith(), .equals(), .equalsIgnoreCase, .toLowerCase(), .toUpperCase(),
 
 Remember: You can use a 'for' loop and 'charAt(i)' to traverse on all the letters of a string.
 
-Note: While using the 'replace()' method; be aware that we have the ability to traverse over all the characters of a string, to find the target character we're searching. Ex:
+Note: While using the 'replace()' method; be aware that we have the ability to traverse over all the characters of a string for the aim of finding the target character we're searching for. Ex:
 str.replace(targetChar, newChar)
-
+-------------------------------
+* 'continue' keyword: is used in a loop. It skips the rest of the code in that lap and goes to the top of the loop (to the next lap of the loop).
