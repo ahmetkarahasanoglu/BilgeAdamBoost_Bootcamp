@@ -1,8 +1,8 @@
 package com.ahmet.entity;
 
 public class Musteri {
-	public int id;
 //	UUID uuid;
+	public int id;
 	public String ad;
 	public String soyad;
 	public String tckimlik;
