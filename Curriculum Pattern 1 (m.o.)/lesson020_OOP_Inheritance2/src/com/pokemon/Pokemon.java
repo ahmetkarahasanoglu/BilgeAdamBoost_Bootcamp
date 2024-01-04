@@ -10,11 +10,12 @@ public class Pokemon {
 	private String[] zayifliklar;
 	private Kullanici kullanici;
 	
-	public Pokemon() { // constructor
+	// Constructor
+	public Pokemon() { 
 		can = 100;
 	}
 	
-	// Parametreli constructor
+	// Parametreli Constructor
 	public Pokemon(long myId, String pokemonIsmi, String pokemonTuru, int pokemonCani, int pokemonGucu, int pokemonDerecesi) {
 //		this();
 		id = myId;
@@ -99,7 +100,6 @@ public class Pokemon {
 		System.out.println("can....: " + can);
 		System.out.println("güç....: " + guc);
 		System.out.println("derece.: " + derece);
-		System.out.println("--------------------");
 	}
 
 	

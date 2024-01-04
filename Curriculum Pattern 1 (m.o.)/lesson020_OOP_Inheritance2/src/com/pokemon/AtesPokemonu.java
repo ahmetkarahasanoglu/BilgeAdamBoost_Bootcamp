@@ -25,7 +25,8 @@ public class AtesPokemonu extends Pokemon {
 	
 	// --- Methods: ---
 	@Override
-	public void pokedex() {		
+	public void pokedex() {	
+		super.pokedex();
 		System.out.println("***** POKEDEX: *****");		
 		System.out.println("id.....: " + this.getId());
 		System.out.println("ad.....: " + this.getAd());
@@ -34,8 +35,10 @@ public class AtesPokemonu extends Pokemon {
 		System.out.println("güç....: " + this.getGuc());
 		System.out.println("derece.: " + this.getDerece());
 		System.out.println("yakcGuc: " + yakicilikGucu);
-		System.out.println("--------------------");
 	}
+	
+	
+	
 	
 	
 }

@@ -23,16 +23,16 @@ public class Test {
 //		System.out.println(atesPokemonu.getYakicilikGucu());
 		
 		AtesPokemonu atesPokemonu2 = new AtesPokemonu(3, "Firezard", "Ateş", 90, 140, 200, 250);
-		atesPokemonu2.pokedex();
-		System.out.println(atesPokemonu2.getYakicilikGucu());
+//		atesPokemonu2.pokedex();
+//		System.out.println(atesPokemonu2.getYakicilikGucu());
 		AtesPokemonu atesPokemonu3 = new AtesPokemonu();
-		atesPokemonu3.pokedex();
+//		atesPokemonu3.pokedex();
 		
 		Pokemon pokemon2 = new Pokemon(3, "Pikachu", "Elektrik", 150, 300, 120);
 //		pokemon2.pokedex();
 		
-//		SuPokemonu suPokemonu = new SuPokemonu();	
-//		suPokemonu.pokedex();
+		SuPokemonu suPokemonu = new SuPokemonu(4, "Squirtle", "Su Pokemonu", 200, 180, 2, 110, 150);
+		suPokemonu.pokedex();
 		
 	}//main ends here
 
