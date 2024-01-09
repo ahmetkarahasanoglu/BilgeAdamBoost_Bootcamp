@@ -12,9 +12,9 @@ package com.okulyonetimsistemi;
  * kullan.
  */
 public class Runner {
-
-	public static void main(String[] args) {
 		
+	public static void main(String[] args) {
+			// *** WE'RE USING 'TEST' CLASS TO RUN, NOW ****
 		Memur memur = new Memur();
 		System.out.println(memur.sicilNo);
 		

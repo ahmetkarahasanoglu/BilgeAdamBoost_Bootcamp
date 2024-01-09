@@ -12,4 +12,5 @@ public interface ICrud {
 	void update();
 	void delete(Long id);
 	
+	void findById(Long id);
 }

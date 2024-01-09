@@ -11,3 +11,13 @@ public interface ICrud<T> { // T: tip'i sembolize etsin. [Generic Types]. Interf
 	T[] findAll();
 	T findById(Long id);
 }
+
+
+---------------------------------------
+NOT:
+DİKKAT !!!!
+Generic type'larda primtiive tipler kullanılamazlar. Sadece
+Reference Data Type'lar kullanılabilir.
+	List<Integer> matematik;
+//	List<int> turkce; // primitive tipler kullanılamaz Generic Type'larda.
+	List<Integer> turkce;

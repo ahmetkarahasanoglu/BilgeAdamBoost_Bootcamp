@@ -39,6 +39,15 @@ public class Ogretmen extends Calisan {
 		this.nobetciMi = nobetciMi;
 	}
 	
+	// METHODS:	
+	@Override
+	public void menu() {		
+		super.menu();
+		System.out.println("*** Öğretmen İşlemleri ***");
+		System.out.println("1- Girdiğim derleri listele");
+		System.out.println("2- Nöbetçilik durumu sorgula");
+	}
+	
 	
 	
 	

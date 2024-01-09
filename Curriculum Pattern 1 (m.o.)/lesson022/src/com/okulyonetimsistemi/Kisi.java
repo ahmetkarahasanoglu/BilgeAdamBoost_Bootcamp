@@ -1,6 +1,7 @@
 package com.okulyonetimsistemi;
 
 public class Kisi {
+	
 	private String isim;
 	private String soyisim;
 	private String adres;
@@ -50,7 +51,15 @@ public class Kisi {
 
 	public void setAdres(String adres) {
 		this.adres = adres;
+	}	
+	
+	
+	// METHODS:
+	public void menu() {
+		System.out.println(isim + " OKUL YÖNETİM SİSTEMİNE HOŞGELDİNİZ.");
+		
 	}
+	
 	
 	
 	

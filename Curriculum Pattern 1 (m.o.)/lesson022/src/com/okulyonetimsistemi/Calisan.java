@@ -44,6 +44,10 @@ public class Calisan extends Kisi {
 		this.maas = maas;
 	}
 
+	@Override
+	public void menu() {
+		super.menu();
+	}
 	
 	
 	
