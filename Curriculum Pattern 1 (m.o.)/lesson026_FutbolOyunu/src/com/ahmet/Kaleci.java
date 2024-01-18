@@ -1,5 +1,7 @@
 package com.ahmet;
 
+import java.util.Random;
+
 public class Kaleci extends Futbolcu {
 	
 	private int kurtaris;
@@ -7,9 +9,9 @@ public class Kaleci extends Futbolcu {
 	
 	
 	// CONSTRUCTOR:
-	public Kaleci() {
-		super();
-		this.kurtaris = StaticValues.generateRandomValue(65, 100);
+	public Kaleci(String adSoyad, int formaNo) {
+		super(adSoyad, formaNo);
+		this.kurtaris = generateRandomSkillPoint();
 		this.setAdSoyad("kaleci");
 		this.setFormaNo(1);
 	}
@@ -33,6 +35,18 @@ public class Kaleci extends Futbolcu {
 				+ ", getDogalForm()=" + getDogalForm() + ", getSans()=" + getSans() + "]";
 	}
 
+	@Override
+	public int generateRandomSkillPoint() {
+		Random random = new Random();
+		return random.nextInt(65,101);
+	}
+	
+	public int kurtarisSkoruHesapla() {
+		Random random = new Random();
+		double bonus = random.nextInt(1, 5) * this.getDogalForm() * 0.025;
+		double result = this.kurtaris*0.2 + this.getKararlilik()*0.1 + bonus;
+		return (int)result;
+	}
 
 	
 }

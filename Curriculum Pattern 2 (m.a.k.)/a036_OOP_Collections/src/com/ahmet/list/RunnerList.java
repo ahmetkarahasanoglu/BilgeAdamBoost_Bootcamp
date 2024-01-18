@@ -3,7 +3,7 @@ package com.ahmet.list;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RunnerList { // Actual Runner we use
+public class RunnerList { // the Actual Runner we use
 
 	public static void main(String[] args) {
 /*

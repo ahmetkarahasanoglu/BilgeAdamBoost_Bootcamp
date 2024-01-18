@@ -1,7 +1,9 @@
 package com.teacherscode;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Random;
 
 public class Mac {
@@ -9,6 +11,7 @@ public class Mac {
 	long sure;
 	List<Takim> takimlar;
 	int[] macSkoru;
+	Queue<AktifFutbolcu> pasAtacakFutbolcular = new LinkedList<>();
 
 	public Mac() {
 
@@ -63,6 +66,15 @@ public class Mac {
 		}
 
 	}
+	
+	public Queue<AktifFutbolcu> kuyrugaOyuncuSec(Takim takim) {
+		int index = passKontrol(12);
+		for(int i=0; i<4; i++) {
+			pasAtacakFutbolcular.offer(takim.getFutbolcular().get(index));
+			index = passKontrol(index);
+		}
+		return pasAtacakFutbolcular;
+	}
 
 	public void oyna(Takim takim) throws InterruptedException {
 		int index = passKontrol(12);
@@ -83,9 +95,27 @@ public class Mac {
 				Thread.sleep(1500);
 			}
 		}
-
 		golVurusu(takim.getFutbolcular().get(index), takim);
-
+	}
+	
+	public void oyna2(Takim takim) throws InterruptedException {
+		kuyrugaOyuncuSec(takim);
+		for (int i = 0; i < 3; i++) {
+			if (pasAtacakFutbolcular.peek().pasVer()) {				
+				System.out.println(takim.getAd() + " adlı takımdan " + pasAtacakFutbolcular.poll().getFormaNo()
+						+ " nolu oyuncu " + pasAtacakFutbolcular.peek().getFormaNo() + " pas atıyor");				
+				Thread.sleep(1500);
+			} else {
+				System.out.println(takim.getAd() + " adlı takımdan " + pasAtacakFutbolcular.poll().getFormaNo()
+						+ " nolu oyuncunun pası başarısız oldu !!! ");
+				takim = takimDegistir(takim);
+				pasAtacakFutbolcular.clear();
+				kuyrugaOyuncuSec(takim);
+				i = -1;				
+				Thread.sleep(1500);
+			}
+		}
+		golVurusu(pasAtacakFutbolcular.poll(), takim);
 	}
 
 	public void golVurusu(AktifFutbolcu futbolcu, Takim takim) throws InterruptedException {
@@ -138,7 +168,8 @@ public class Mac {
 		Takim takim = yaziTura();
 		System.out.println(takim.getAd() + " takim başlıyor ....");
 		while (sure > System.currentTimeMillis()) {
-			oyna(takim);
+//			oyna(takim);
+			oyna2(takim);
 			takim = takimDegistir(takim);
 			System.out.println((sure - System.currentTimeMillis()) / 1000 + " saniye kaldı");
 		}

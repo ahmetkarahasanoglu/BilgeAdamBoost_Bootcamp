@@ -1,6 +1,14 @@
 package com.ahmet;
 
-public class Futbolcu {
+import java.util.Random;
+
+/*
+ * ÖNEMLİ !!!!! : Futbolcu sınıfını abstract sınıf olarak 
+ * tanımladık. Çünkü biz Futbolcu sınıfından bir nesne
+ * oluşturmayacağız, onun alt sınıflarından oluşturacağız.
+ * Bir blueprint olarak düşünebiliriz Futbolcu sınıfını.
+ */
+public abstract class Futbolcu { 
 	private String adSoyad;
 	private int formaNo;
 	private int dayaniklilik;
@@ -14,18 +22,18 @@ public class Futbolcu {
 	
 	
 	// CONSTRUCTOR
-	public Futbolcu() {
+	public Futbolcu(String adSoyad, int formaNo) {
 		super();
-//		this.adSoyad = 
-//		this.formaNo = 
-		this.dayaniklilik = StaticValues.generateRandomValue(50, 100);
-		this.hiz = StaticValues.generateRandomValue(50, 100);
-		this.pas = StaticValues.generateRandomValue(50, 100);
-		this.sut = StaticValues.generateRandomValue(50, 100);
-		this.yetenek = StaticValues.generateRandomValue(50, 100);
-		this.kararlilik = StaticValues.generateRandomValue(50, 100);
-		this.dogalForm = StaticValues.generateRandomValue(50, 100);
-		this.sans = StaticValues.generateRandomValue(50, 100);
+		this.adSoyad = adSoyad;
+		this.formaNo = formaNo;
+		this.dayaniklilik = generateRandomSkillPoint();
+		this.hiz = generateRandomSkillPoint();
+		this.pas = generateRandomSkillPoint();
+		this.sut = generateRandomSkillPoint();
+		this.yetenek = generateRandomSkillPoint();
+		this.kararlilik = generateRandomSkillPoint();
+		this.dogalForm = generateRandomSkillPoint();
+		this.sans = generateRandomSkillPoint();
 	}
 	
 	
@@ -93,6 +101,11 @@ public class Futbolcu {
 
 
 	// METHODS: -----------	
+	public int generateRandomSkillPoint() {
+		Random random = new Random();
+		int randNum = random.nextInt(50, 101);
+		return randNum;
+	}
 	
 	
 }
