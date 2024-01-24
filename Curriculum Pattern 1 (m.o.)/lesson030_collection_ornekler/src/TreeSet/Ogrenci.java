@@ -3,10 +3,16 @@ package TreeSet;
 public class Ogrenci implements Comparable<Ogrenci> {
 
 	int id;
+	String name;
 
 	// CONSTRUCTOR:
 	public Ogrenci(int id) {		
+		this.id = id;		
+	}
+	
+	public Ogrenci(int id, String name) {		
 		this.id = id;
+		this.name = name;
 	}
 
 	
@@ -21,13 +27,10 @@ public class Ogrenci implements Comparable<Ogrenci> {
 		}		
 	}
 
-
 	@Override
 	public String toString() {
-		return "Ogrenci [id=" + id + "]";
-	}	
-	
-	
+		return "Ogrenci [id=" + id + ", name=" + name + "]";
+	}
 	
 	
 }
