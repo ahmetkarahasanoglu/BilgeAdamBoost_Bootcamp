@@ -46,7 +46,8 @@ public class Ornek1 {
          * SORU:
          * İçerisinde 'a' harfi (büyük veya küçük) içeren isimleri
          * K(Integer), V(List<String>) olacak şekilde Map
-         * yapan kodu yazınız.
+         * yapan kodu yazınız. (Key: string uzunluğu,
+         * Value: o uzunluktaki elemanlar)
          */
         liste = List.of("Ahmet", "Ali", "Muhammet", "Canan", "Tekin", "Ülkü", "Hayri", "Deniz", "Eren", "Kaan", "Canan", "Deniz", "Ali");
         liste.stream()

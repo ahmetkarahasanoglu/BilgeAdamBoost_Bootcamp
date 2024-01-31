@@ -45,7 +45,7 @@ public class Runner {
 
         /*
          * Tüm listelerde stream miras olarak alınmaktadır. Bu
-         * nedenler tüm listeler stream'e döndürülebilir.
+         * nedenle tüm listeler stream'e döndürülebilir.
          * örn: gunler.stream()
          */
 
