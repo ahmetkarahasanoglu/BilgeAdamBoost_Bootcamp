@@ -3,6 +3,7 @@ package com.bilgeadam.lesson043.dependencyInversion.databaselogger.cözüm;
 public class DatabaseLogger2 {
 	ILogger logger;
 
+	// CONSTRUCTOR:
 	public DatabaseLogger2(ILogger logger) {
 		super();
 		this.logger = logger;

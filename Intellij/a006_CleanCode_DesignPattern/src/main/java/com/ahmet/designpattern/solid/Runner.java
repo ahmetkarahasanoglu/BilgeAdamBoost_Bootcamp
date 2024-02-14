@@ -41,7 +41,7 @@ public class Runner {
          *        ilgili olan veri tabanına kaydetme işlemi yapmalı.
          *        ICrud, IService vs. -> sadece DB'ler için işlem bütünlüğünü
          *        sağlıyor.
-         *        save(Musteri m, IslemTuru t), fidnById(),
+         *        save(Musteri m, IslemTuru t), findById(),
          *        findOptionalByUsernameAndPassword() -> bir metot sadece bir
          *        iş yapar.
          *    O - Open/Closed:
@@ -75,7 +75,7 @@ public class Runner {
          *        Bir projeyi yaparken, kodlanabilirlik ve kodların azaltılması
          *        adına miras alma yöntemlerini sıklıkla kullanırız. Ancak burda
          *        dikkat edilmez ise kodların bağımlılığı sıkılaşır ve bir süre
-         *        sonra sınıfların değişim ve dönüşümleri soru yaratmaya başlar.
+         *        sonra sınıfların değişim ve dönüşümleri sorun yaratmaya başlar.
          *        A->
          *        B-A, C-A, G-A
          *        E-G, D-B

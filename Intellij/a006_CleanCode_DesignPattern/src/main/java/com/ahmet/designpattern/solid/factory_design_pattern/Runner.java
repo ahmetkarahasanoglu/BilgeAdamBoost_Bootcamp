@@ -5,7 +5,7 @@ public class Runner {
     public static void main(String[] args) {
 
         // --- Yanlış kullanım:
-//        Kamyon kamyon1 = new Kamyon(); // Yanlış kullanım; bunun yerine polimorfizm kullanmalıyız (esneklik sağlar; aracı silip başka araç yazabiliriz)
+//        Kamyon kamyon1 = new Kamyon(); // Yanlış kullanım; bunun yerine polimorfizm kullanmalıyız (esneklik sağlar)
 //        kamyon1.evrakDoldur();
 
         Tasima tasima;

@@ -1,0 +1,4 @@
+* Veri tabanı yönetim işlemleri 2 şekilde yapılabilir:
+1- Komut satırı ile (cmd)
+2- PgAdmin Tool ile.
+bu şekilde veritabanı sunucusuna bağlanılır, istenilen işlemler yapılır.
