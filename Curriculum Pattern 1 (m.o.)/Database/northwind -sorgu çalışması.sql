@@ -1,3 +1,4 @@
+
 -- Çalışanlarda(employees) 'title_of_couresty' alanı 'Dr.' olanların isim ve soy 
 -- ismini getirelim; kolon isimleri 'ad' diğeri de 'soyad' olsun
 select first_name as ad, last_name as soyad 
@@ -73,5 +74,307 @@ select left(last_name, 3) from employees
 select product_name, unit_price as "kdv hariç fiyat", unit_price*118/100 as "kdv dahil fiyat" 
 from products
 -- kdv(%18) miktarı 10 liranın altında olanları getirin
-select * from products
+select *, unit_price*18/100 as "kdv tutari" from products
 where unit_price*18/100 < 10
+
+-- Soru: Products tablosunda en pahalı ürünün adını yazdırınız.
+   -- 1.yöntem:
+select product_id, product_name, unit_price from products
+where unit_price=(
+	select max(unit_price) from products
+)
+   -- 2.yöntem:
+select product_id, product_name, unit_price from products
+order by unit_price desc
+limit 1
+   -- 3.yöntem:
+SELECT product_name, MAX(unit_price) AS max_price
+FROM products
+GROUP BY product_name
+ORDER BY max_price DESC
+LIMIT 1;
+
+-- Soru: Aynı kategorideki ürünlerin toplam fiyatlarını getirelim:
+select category_id, sum(unit_price) from products -- select [the grouped field, and a function]
+group by category_id
+
+-- Soru: Ülkelere göre müşteri sayılarını veren sorgu.
+select country, count(*)
+from customers
+group by country
+
+-- Soru: Her kategoride kaç ürün vardır?
+select category_id, count(*)
+from products
+group by category_id
+
+-- Soru: Her bir tarihte ne kadar sipariş yapılmış (orders tablosundan)?
+select order_date, count(*) from orders
+group by order_date
+
+select * from orders
+
+-- Soru: Her bir tarihde hangi ülkeden kaç tane sipariş yapılmış(orders tablosundan)?
+select order_date, ship_country, count(*) from orders
+group by order_date, ship_country
+order by order_date
+
+-- Soru: products tablosunda her kategoriden en düşük ve en yüksek unit_price'lara sahip ürünleri getirelim
+select category_id, max(unit_price) as most_expensive, min(unit_price) as cheapest 
+from products
+group by category_id
+order by category_id
+
+-- Soru: indirim oranı 0.1'den büyük olanların ürün sayısı toplamını getiriniz (order_details tablosundan)
+select * from order_details
+
+select discount, sum(quantity)
+from order_details
+where discount>0.1
+group by discount
+
+select discount, sum(quantity)
+from order_details
+group by discount
+having discount>0.1 -- having: grupladıktan sonra bir koşul koymaya yarar.
+
+-- İndirim oranı 0.1'den büyük olanlardan her bir indirim oranının ürün sayısı toplamı 4350'den büyük olanları getirelim (order_details tablosundan)
+select discount, sum(quantity) as total_number_of_products_for_a_discount_rate 
+from order_details
+where discount>0.1
+group by discount having sum(quantity) > 4350
+order by discount
+
+   -- 2. yöntem:
+select discount, sum(quantity) 
+from order_details 
+group by discount having discount>0.1 and sum(quantity)>4350
+
+-- Soru: A ile başlayan ülkelerdeki (her bir ülkenin ayrı ayrı) müşteri sayısını getiriniz (customers tablosundan)
+select country, count(*) from customers 
+where country ilike 'A%'
+group by country
+   -- 2. yöntem:
+select country, count(*) from customers 
+group by country having country ilike 'A%'
+
+select * from customers
+
+------------------------------------------------------------------
+------------------------------------------------------------------
+-- Soru: Hangi tedarikçi hangi ürünleri sağlıyor?
+select * from products;
+select * from suppliers;
+
+select sup.company_name, pro.product_name from products as pro
+inner join suppliers as sup on sup.supplier_id = pro.supplier_id
+order by company_name
+
+-- Soru: Beverages kategorisinden kaç farklı ürün var?
+select * from products;
+select * from categories;
+
+select count(*) from products as pro
+inner join categories as cat on cat.category_id=pro.category_id
+where cat.category_name='Beverages'
+
+-- Soru: Her kategoride kaçar farklı ürün vardır?
+select category_name, count(*) from products as pro
+inner join categories as cat on cat.category_id=pro.category_id
+group by cat.category_name
+
+-- Soru: Her tedarikçi kaç tane ürün satıyor?
+select * from suppliers;
+select * from products;
+
+select sup.company_name, sup.contact_name, count(pro.product_name) from products as pro
+inner join suppliers as sup on sup.supplier_id=pro.supplier_id
+group by sup.company_name, sup.contact_name
+order by company_name, contact_name
+
+-- Soru: Bir siparişte toplam kaç adet ürün satılmış ve hangi id'li müşteri almış?
+select * from orders;
+select * from order_details;
+
+select o_d.order_id, o.customer_id, sum(o_d.quantity) from orders as o
+inner join order_details as o_d on o.order_id=o_d.order_id
+group by o_d.order_id, o.customer_id
+order by customer_id
+   -- or, by using 'natural join':
+select o_d.order_id, o.customer_id, sum(o_d.quantity) from orders as o
+natural join order_details as o_d
+group by o_d.order_id, o.customer_id
+order by customer_id
+
+-- Soru: Hangi çalışan hangi bölgeden/bölgelerden sorumludur? (firstname lastname territory_description)
+select * from employees;
+select * from employee_territories; -- 'Many to Many' --> ara tablo tutuluyor bu yüzden (employee_territories), burda tekrar eden kayıtlar tutuluyor
+select * from territories;
+
+select e.first_name, e.last_name, t.territory_description from employees as e
+inner join employee_territories as e_t on e.employee_id=e_t.employee_id
+inner join territories as t on e_t.territory_id=t.territory_id
+order by e.first_name, e.last_name
+   -- or, by using 'natural join':
+select e.first_name, e.last_name, t.territory_description from employees as e
+natural join employee_territories as e_t
+natural join territories as t
+order by e.first_name, e.last_name
+
+-- Her bir çalışan kaç bölgeden sorumludur?
+select e.first_name, e.last_name, count(t.territory_description) from employees as e
+inner join employee_territories as e_t on e.employee_id=e_t.employee_id
+inner join territories as t on e_t.territory_id=t.territory_id
+group by  e.first_name, e.last_name
+order by e.first_name, e.last_name
+-- Her bir çalışanın toplam sattığı ürün adedi (quantity) nedir?
+select * from employees;
+select * from orders;
+select * from order_details;
+
+select e.employee_id, e.first_name, e.last_name, sum(o_d.quantity) as toplam_sattigi_urun_adedi 
+from employees as e
+inner join orders as o on e.employee_id=o.employee_id
+inner join order_details as o_d on o_d.order_id=o.order_id
+group by e.employee_id, e.first_name, e.last_name
+order by employee_id
+
+-- VIEW Örnek: Product'larla category'leri birleştiren tablonun view'ini yazalım: product_categories_view
+create view vwproduct_categories as
+select * from products
+natural join categories
+
+select * from vwproduct_categories
+------------------------------------------------------------------
+
+-- Ürünlere göre tedarikçi view'i oluşturalım: product name, company name, city, country - alanlarını gösterelim.
+select * from products;
+select * from suppliers;
+
+create view vw_urunlere_gore_tedarikciler as
+select pro.product_name, sup.company_name, sup.city, sup.country from products as pro
+inner join suppliers as sup on sup.supplier_id=pro.supplier_id
+
+select * from vw_urunlere_gore_tedarikciler
+
+-- Bir ülkede satılan ürün (çeşit) sayısını getiren sorguyu yazalım
+select country, count(product_name) 
+from vw_urunlere_gore_tedarikciler
+group by country
+
+-- Bir view oluşturalım, şu tablolardan: employees - customers - order_details.
+-- başka tabloları da kullanmamız lazım, kendiniz bulacaksınız.
+-- view'in alanları şunlar olsun: orderid, employeeid, firstname,
+-- lastname, customerid, companyname, country, orderdate, productname,
+-- quantity, unit price, discount
+select * from employees
+select * from customers
+select * from order_details
+select * from orders
+select * from products
+	
+
+CREATE VIEW vw_employee_customer_order_products AS
+SELECT
+    o.order_id,
+    e.employee_id,
+    e.first_name AS employee_firstname,
+    e.last_name AS employee_lastname,
+    cu.customer_id,
+    cu.company_name,
+    cu.country,
+    o.order_date,
+    p.product_name,
+    od.quantity,
+    od.unit_price,
+    od.discount
+FROM orders o
+JOIN employees e ON o.employee_id = e.employee_id
+JOIN customers cu ON o.customer_id = cu.customer_id
+JOIN order_details od ON o.order_id = od.order_id
+JOIN products p ON od.product_id = p.product_id;
+
+select * from vw_employee_customer_order_products
+
+-- Soru: Her bir çalışanın toplam satış adedi (toplamda kaç parça
+-- 		 ürün sattığı)'nı getiren sorguyu yazınız.
+select employee_firstname, employee_lastname, sum(quantity) as total_quantity_sold
+from vw_employee_customer_order_products
+group by employee_firstname, employee_lastname
+-- 5000 parçadan fazla satış yapan çalışanları getiren sorgu
+select employee_firstname, employee_lastname, sum(quantity) as total_quantity_sold
+from vw_employee_customer_order_products
+group by employee_firstname, employee_lastname
+having sum(quantity)>5000
+
+
+------------------------------------------------------------------
+------------------- PROCEDURE ------------------------------------
+------------------------------------------------------------------
+-- procedure'leri genelde 'crud' işlemleri için kullanıyormuşuz.
+create or replace PROCEDURE procedureIsmi() -- eğer parametre alıyorsa parametreleri tanımlayacağız.
+LANGUAGE plpgsql
+as
+$$
+begin
+	-- kod bloğu buraya yazılır
+end;$$
+------------------------------------------------------------------
+------------------- FUNCTION  ------------------------------------
+------------------------------------------------------------------
+create or replace FUNCTION fonksiyonIsmi() -- eğer parametre alıyorsa parametreleri tanımlayacağız.
+returns int -- burda return type belirliyoruz (int, varchar, tablo bile olabilir)
+LANGUAGE plpgsql
+as
+$$
+begin
+declare
+	-- değişkenlerimiz varsa bu blokta tanımlıyoruz.
+	sayi integer;
+	isim varchar := 'Mustafa'; -- default değer atama
+begin
+	-- fonksiyonun gövdesi
+	return sayi; -- burda fonskiyonumuzun return değerini yazıyoruz.
+end;$$
+
+-- Soru: Yeni bir procedure yaratın. Bu procedure dışarıdan bir name
+-- 		 alsın. Bu name ile yeni bir category oluştursun.
+create or replace PROCEDURE yeni_category_olustur(yeni_id bigint, isim varchar)
+LANGUAGE plpgsql
+as
+$$
+begin
+	insert into categories(category_id, category_name, description)
+	values(yeni_id, isim, 'yeni_aciklama');
+end;$$
+
+CALL yeni_category_olustur(88, 'benim_yeni_kate');
+
+select * from categories
+
+-- Soru: Son oluşturduğumuz kategoriyi silen procedure oluşturun.
+create or replace PROCEDURE kategori_sil(the_id bigint)
+LANGUAGE plpgsql
+as
+$$
+begin
+	delete from categories where category_id=the_id;
+end;$$
+
+CALL kategori_sil(88);
+
+select * from categories
+
+-- Soru: employee tablosuna int türünde bir age kolonu ekledik. 
+--		 yaş hesaplama procedur'u yazalım.
+create or replace PROCEDURE yas_hesapla()
+LANGUAGE plpgsql
+as
+$$
+begin
+	update employees set age = (now()::date - birth_date)/365
+end;$$
+
+call yas_hesapla;
+
+select * from employees

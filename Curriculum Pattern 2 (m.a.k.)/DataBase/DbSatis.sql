@@ -512,3 +512,152 @@ from vwborclumusterilerinencoksatinaldigiurunlistesi
 group by urunid
 order by toplam_adet desc
 limit 5
+
+-----------------------------------------------------------------
+---------- YAZILIM KODLARI YAZMAK - POSTGRE SQL -----------------
+-----------------------------------------------------------------
+do$$
+declare
+---  değişken tanımlamak için kullanılan alanımız.
+begin
+--- gövde, kodların yazıldığı alan
+end; $$
+
+---------
+---------
+-- for loop
+do $$
+declare
+	counter INT;
+begin
+	for counter in 1..5 loop
+		raise notice 'selam......: %', counter;
+	end loop;
+	-- '--> for(int counter=1; counter<5; counter++) {
+	-- 			System.out.println("selam.....: " + counter);
+	--		}
+
+begin
+	for counter in 1..50 loop
+		insert into tbladres(musteriid, il, ilce, mahalle)
+		values(counter, 'Ankara', 'Merkez', 'Kızılay');
+	end loop;
+end;
+end $$
+
+select * from tbladres
+
+---------
+---------
+do $$
+declare
+	sayac integer; -- değişken tanımlama: [name] [datatype]
+	sayac2 integer:= 2; -- assigning initial value to variable
+begin
+	sayac := 0;
+	while sayac<10 loop
+		raise notice 'döngü devam ediyorrrr';
+		sayac2:= sayac2 + sayac;
+		sayac := sayac + 1;
+	end loop;
+	raise notice 'sayac2 son deger....: %', sayac2;
+end;$$
+
+---------
+---------
+-- IF
+do $$
+declare
+	sayi1 integer := 3;
+	sayi2 integer := 4;
+begin
+	if sayi1 > sayi2 then
+		raise notice '1. sayı büyüktür';
+	elseif sayi2 > sayi1 then
+		raise notice '2. sayı büyüktür';
+	else
+		raise notice 'iki sayı eşittir.';
+	end if;
+end;
+$$
+
+---------------------------------------------------------------
+--------- PROCEDURE --> void metot'lar gibi çalışır.
+---------------------------------------------------------------
+create procedure ekranayazdir()
+language plpgsql
+as
+$$
+begin
+	raise notice 'Ekran çıktısı';
+end;
+$$
+--- procedure'ler 'call' ile çağrım yapılır.
+select * from tbladres
+call ekranayazdir();
+---------
+
+create procedure dongukadaryazdir(adet integer)
+language plpgsql
+as
+$$
+declare
+	sayac integer := 0;
+begin
+	while sayac<adet loop -- 'adet' değişkenini dışardan almıştık (yukarda 'create procedure' satırında yapmıştık)
+		raise notice 'döngüüüüüü';
+		sayac := sayac + 1;
+	end loop;
+end; $$
+
+call dongukadaryazdir(10);
+
+
+
+create procedure editnulladres(id integer)
+language plpgsql
+as
+$$
+begin
+	update tbladres set il='Ankara', ilce='Merkez', mahalle='Kızılay'
+	where id = id;
+end;
+$$
+select * from tbladres
+call editnulladres(1)
+---------------------------------------------------------------
+---------------------------------------------------------------
+
+-- FUNCTION -> işlem sonucunda bir şey return edebilirsiniz.
+--			   Çağırma işlemini 'select' ile yapabilirsiniz.
+------
+
+-- ödeme türüne göre yapılan ödeme ortalamasını bulan fonksiyonu yazalım.
+select * from tblodeme
+select * from tblodemeturu
+
+create function getodemeortalamasi(odemeturuadi varchar)
+returns double precision 
+language plpgsql
+as
+$$
+declare
+	odemeturid bigint := 0;
+	odemesayisi integer := 0;
+	toplamtutar double precision := 0;
+	ortalama double precision := 0;
+begin
+	select id into odemeturid from tblodemeturu where tur = odemeturuadi;
+	select count(tutar) into odemesayisi from tblodeme where odemeturuid=odemeturid;
+	--raise notice 'ödeme sayisi....: %', odemesayisi;
+	select sum(tutar) into toplamtutar from tblodeme where odemeturuid=odemeturid;
+	raise notice 'ödeme sayisi....: %', toplamtutar;
+	--ortalama := toplamtutar / odemesayisi;
+	return ortalama;
+end;
+$$
+
+select count(tutar) from tblodeme where odemeturuid=2;
+select getodemeortalamasi('CEK');
+-- '--> burası biraz manüel oldu, hesap makinesiyle hesaplayıp sağlamasını yapmaya çalıştık falan. (üst iki satır)
+	

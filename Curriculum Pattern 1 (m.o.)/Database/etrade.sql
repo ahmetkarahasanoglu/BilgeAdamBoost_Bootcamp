@@ -25,3 +25,15 @@ update cities set city='ankara' where city='ANKARA'
 update cities set city=(select lower(city) from cities where city='ANKARA') where city='ANKARA'
 -- payments tablosunda paymenttotal 2000'den büyük olanlara 200 tl indirim yapalım, bunu da tabloda güncelleyelim
 update payments set paymenttotal=(paymenttotal-200) where paymenttotal>2000
+
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+-- LEFT JOIN: Soldaki tabloyu tamamen alır. Sağdaki tabloda eşleşen
+-- 			  yerleri getirir, eşleşmeyen yerleri de 'null' gösterir
+--			  sağdaki tabloda.
+select * from towns 
+left join cities ON towns.cityid=cities.id
+
+-- FULL JOIN: 'left join' ve 'right join'i birlikte yapar. İki kümenin
+--			  birleşim kümesidir. (Her iki tabloda da null olan
+--			  satırlar olabilir.)
