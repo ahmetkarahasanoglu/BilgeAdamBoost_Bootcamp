@@ -23,14 +23,14 @@ public class FutbolcuService implements ICrudService<Futbolcu> {
 
     @Override
     public void update(Futbolcu futbolcu) {
-        if(futbolcuRepository.findById(futbolcu.getId()).isPresent()) {
+        if(findById(futbolcu.getId()).isPresent()) {
             futbolcuRepository.update(futbolcu);
         }
     }
 
     @Override
     public void delete(Long id) {
-        if(futbolcuRepository.findById(id).isPresent()) {
+        if(findById(id).isPresent()) {
             futbolcuRepository.delete(id);
         }
     }

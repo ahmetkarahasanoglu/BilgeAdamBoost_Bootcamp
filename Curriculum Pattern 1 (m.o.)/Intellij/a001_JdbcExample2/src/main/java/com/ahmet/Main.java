@@ -72,7 +72,7 @@ public class Main {
                     futbolcuOlustur();
                     break;
                 case 2:
-
+                    futbolcuGuncelle();
                     break;
                 case 3:
                     futbolcuSil();
@@ -92,6 +92,24 @@ public class Main {
         }while(input!=0);
 
 
+    }
+
+    private void futbolcuGuncelle() {
+        System.out.print("Lütfen isim giriniz: ");
+        String isim = scanner.nextLine();
+        System.out.print("Lütfen mevki giriniz: ");
+        String mevki = scanner.nextLine();
+        System.out.print("Lütfen forma_no giriniz: ");
+        int formaNo = Integer.parseInt(scanner.nextLine());
+        System.out.print("Lütfen takım id giriniz: ");
+        Long takimId = Long.parseLong(scanner.nextLine());
+        System.out.print("Lütfen futbolcunun degerini giriniz: ");
+        Long deger = Long.parseLong(scanner.nextLine());
+        System.out.print("Lütfen güncellemek istediğiniz futbolcunun id'sini giriniz: ");
+        Long id = Long.parseLong(scanner.nextLine());
+        Futbolcu futbolcu = new Futbolcu(isim, mevki, formaNo, deger, takimId);
+        futbolcu.setId(id);
+        futbolcuController.update(futbolcu);
     }
 
     private void futbolcuOlustur() {
