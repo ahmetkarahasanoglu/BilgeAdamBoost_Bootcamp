@@ -41,6 +41,6 @@ public class User {
     @ElementCollection // burada 'embedded' yazmamıza gerek yokmuş (ElementCollection olduğu içinmiş). -biz burda '@Embeddable' olan Address'i çekip kullanıyoruz
     @Enumerated(EnumType.STRING)
     private Map<AddressType, Address> adres;
-    private int postCount;
+    private int postcount;
 
 }

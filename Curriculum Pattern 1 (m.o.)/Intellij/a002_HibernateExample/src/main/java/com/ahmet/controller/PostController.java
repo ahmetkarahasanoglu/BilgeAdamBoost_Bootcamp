@@ -1,5 +1,6 @@
 package com.ahmet.controller;
 
+import com.ahmet.repository.criteriaquery.PostRepository;
 import com.ahmet.repository.entity.Post;
 import com.ahmet.repository.utility.HibernateUtility;
 import org.hibernate.Session;
@@ -9,6 +10,15 @@ public class PostController {
 
     public static void main(String[] args) {
 
+//        createPost();
+        PostRepository postRepository = new PostRepository();
+        postRepository.postCountOfEachUser();
+        System.out.println("-----");
+        postRepository.postCountOfEachUserGreaterThan3();
+
+    }//MAIN ENDS HERE ----
+
+    public static void createPost() {
         Session session = HibernateUtility.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
 
@@ -76,7 +86,6 @@ public class PostController {
 
         transaction.commit();
         session.close();
-
-    }//MAIN ENDS HERE ----
+    }
 
 }//CLASS ENDS HERE ----

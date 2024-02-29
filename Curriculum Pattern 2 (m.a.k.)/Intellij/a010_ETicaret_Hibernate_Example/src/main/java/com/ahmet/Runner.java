@@ -1,10 +1,13 @@
 package com.ahmet;
 
 import com.ahmet.ornekcriteriakullanimi.CriteriaUsing;
+import com.ahmet.repository.MusteriRepository;
 import com.ahmet.repository.entity.ECinsiyet;
 import com.ahmet.repository.entity.Musteri;
 import com.ahmet.repository.entity.Urun;
+import com.ahmet.service.MusteriService;
 import com.ahmet.utility.HibernateUtility;
+import jdk.swing.interop.SwingInterOpUtils;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -20,6 +23,7 @@ import java.util.List;
 public class Runner {
 
     public static void main(String[] args) {
+        // *** Yeni yazdığımız MyFactoryRepository'yi kullandığımız kısım aşağıda main metodu içerisinde yıldızlı satırların altında.
 
 //    saveMusteri();
 //    saveUrun();
@@ -51,7 +55,50 @@ public class Runner {
 //        cr.namedQuery_findByAd("Deniz");
 //        cr.namedQuery_findByAd("mahmut");
 
-cr.namedQuery_findById(5L);
+//        cr.namedQuery_findById(5L);
+
+//        cr.namedQuery_getCountAll();
+
+//        cr.typedQuery_setProperties(1, 3);
+
+//        Musteri musteri = Musteri.builder()
+//                .ad("Muhammet")
+//                .soyad("HOCA")
+//                .adres("Ankara")
+//                .cinsiyet(ECinsiyet.ERKEK)
+//                .build();
+//        MusteriRepository musteriRepository = new MusteriRepository();
+//        musteriRepository.save(musteri);
+
+        // *******************************************************
+        // *******************************************************
+        // *******************************************************
+        // *******************************************************
+
+        MusteriRepository musteriRepository = new MusteriRepository();
+        musteriRepository.findByEntity(Musteri.builder().ad("a").soyad("A").build()).forEach(x -> { // adında 'a' geçen ve soyadında 'A' geçenleri bul. || burda 'findByEntity()' metodu MyFactoryRepository sınıfından geliyo.
+            System.out.println("Müşteri...: " + x.getAd() + " " + x.getSoyad());
+        });
+
+//        musteriRepository.findAllByColumnNameAndValue("soyad", "TEKİR").forEach(x -> { // soyadı 'TEKİR' olanları getir.
+//            System.out.println("Müşteri...: " + x.getAd() + " " + x.getSoyad());
+//        });
+
+//        musteriRepository.save(Musteri.builder()
+//                        .ad("Kenan")
+//                        .soyad("TEKİR")
+//                        .cinsiyet(ECinsiyet.ERKEK)
+//                .build());
+//        System.out.println("-----");
+//        musteriRepository.findAll().forEach(x -> {
+//            System.out.println("Müşteri...: " + x.getAd() + " " + x.getSoyad());
+//        });
+        //------------------
+
+        MusteriService musteriService = new MusteriService();
+        musteriService.findByEntity(Musteri.builder().ad("a").soyad("A").build()).forEach(x -> {
+            System.out.println("Müşteri...: " + x.getAd() + " " + x.getSoyad());
+        });
 
     }//MAIN ENDS HERE ----
 

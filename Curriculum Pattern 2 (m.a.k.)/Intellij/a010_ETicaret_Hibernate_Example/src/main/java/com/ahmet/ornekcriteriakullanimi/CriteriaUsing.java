@@ -14,6 +14,7 @@ import javax.persistence.criteria.*;
 import java.sql.SQLOutput;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 public class CriteriaUsing {
 
@@ -27,7 +28,7 @@ public class CriteriaUsing {
     }
 
     public List<Musteri> findAll() {
-        CriteriaQuery<Musteri> criteria = builder.createQuery(Musteri.class); // Öncelikle, kullanılacak sınıf, criteria'ya işlenir. [Sorgumuz bize 'Musteri' sınıfından bir şeyler getirecek diye belirttik (aşağıda 'getResultList()' getirecek)
+        CriteriaQuery<Musteri> criteria = builder.createQuery(Musteri.class); // 'Musteri.class' refers to the result class. / Öncelikle, kullanılacak sınıf, criteria'ya işlenir. [Sorgumuz bize 'Musteri' sınıfından bir şeyler getirecek diye belirttik (aşağıda 'getResultList()' getirecek)
         Root<Musteri> root = criteria.from(Musteri.class); // Hangi entity (tablo) varlığına select atılacağı belirlenir. (Musteri tablosu)
         criteria.select(root); // It specifies that all columns of the Musteri entity will be selected. || root: tablonun hepsini seç demektir.
         List<Musteri> musteriList = entityManager.createQuery(criteria).getResultList(); // executing selection and assigning to musteriList
@@ -151,7 +152,7 @@ public class CriteriaUsing {
     public void nativeQuery_findAll() {
         /**
          * 'Java Persistence Api' üzerinden hibernate ile SQL
-         * sorgularını hazırlayıp çalıştırdık. Şimdi ise:
+         * sorgularını hazırlayıp çalıştırdık. Simdi ise:
          * Tüm ORM araçlarında kullanılan yapıların yetersiz
          * kalabileceği durumlar olabilir, ya da yazılan kodların
          * karmaşıklaşarak odaktan uzaklaşılmaya sebep olabilir.
@@ -199,9 +200,38 @@ public class CriteriaUsing {
     public void namedQuery_findById(Long id) {
         TypedQuery<Musteri> typedQuery = entityManager.createNamedQuery("Musteri.findById", Musteri.class);
         typedQuery.setParameter("musterinin_id", id);
+//        Musteri musteri = typedQuery.getSingleResult();
+//        System.out.println(musteri.getId() + " --> " + musteri.getAd() + " " + musteri.getSoyad());
+        // '--> Yukarıdaki, belirtilen id'li bir müşteri bulunamadığında hata verir. Onun yerine şu yapıyı kullanırız:
+        Optional<Musteri> result;
+        try{
+            Musteri musteri = typedQuery.getSingleResult();
+            result = Optional.of(musteri);
+        }catch(Exception e) {
+            System.out.println("Hata oldu...: " + e.toString());
+            result = Optional.empty();
+        }
+        if(result.isPresent()) {
+            System.out.println(result.get().getId() + " --> " + result.get().getAd() + " " + result.get().getSoyad());
+        }
+    }
+
+    public void namedQuery_getCountAll() {
+        TypedQuery<Long> typedQuery = entityManager.createNamedQuery("Musteri.getCountAll", Long.class); // --> buraya 'Long' yerine 'Integer' da yazılabilir; kayıt(satır) sayısını yazdıracağız sonuçta.
+        Long count = typedQuery.getSingleResult();
+        System.out.println("Musteri sayısı.....: " + count);
+    }
+
+    public void typedQuery_setProperties(int page, int count) {
+        /**
+         * Pagination -> sayfalama demektir.
+         */
+        TypedQuery typedQuery = entityManager.createNamedQuery("Musteri.findAll", Musteri.class);
+        typedQuery.setMaxResults(count); // 'count' adet kayıt gösterecek.
+        typedQuery.setFirstResult(page*count); // sayfa??
         List<Musteri> musteriList = typedQuery.getResultList();
         musteriList.forEach(x -> {
-            System.out.println(x.getId() + " --> " + x.getAd() + " " + x.getSoyad());
+            System.out.println(x.getId() + " " + x.getAd());
         });
     }
 

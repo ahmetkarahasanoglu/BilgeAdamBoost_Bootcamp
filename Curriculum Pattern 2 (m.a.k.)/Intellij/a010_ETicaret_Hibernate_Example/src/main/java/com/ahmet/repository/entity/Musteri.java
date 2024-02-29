@@ -19,7 +19,7 @@ import java.util.UUID;
         @NamedQuery(name = "Musteri.findAll", query = "SELECT m from Musteri m"), // "Musteri.findAll" ismini biz verdik, önce sınıf sonra nokta koyup 'findAll' olsun, sınıfa özel olcak bu sorgu çünkü. || sondaki 'Musteri m' 'Musteri as m' anlamında. / 'SELECT m' yazılan yerde 'SELECT m.id, m.ad' gibi şeyler de yazabiliriz.
         @NamedQuery(name = "Musteri.findByAd", query = "select m from Musteri m where lower(m.ad) like lower(:musterinin_adi)"), // 'ilike' çalışmadığı için iki tane 'lower' kullandık. || ':musterininadi' -> dışarıdan parametre alacağımız zaman iki nokta(:) ve parametrenin adini yazıyoruz.
         @NamedQuery(name = "Musteri.findById", query = "select m from Musteri m where m.id = :musterinin_id"),
-        @NamedQuery(name = "Musteri.getCountAll", query = "select count(m) from Musteri"),
+        @NamedQuery(name = "Musteri.getCountAll", query = "select count(m) from Musteri m"),
         @NamedQuery(name = "Musteri.findAllNameSurname", query = "select concat(m.ad,' ',m.soyad) from Musteri m")
 })
 @Entity

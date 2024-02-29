@@ -1,6 +1,6 @@
 package com.ahmet;
 
-public class Runner {
+public class PersonApplication {
 
     public static void main(String[] args) {
 
@@ -8,4 +8,4 @@ public class Runner {
 
     }//MAIN ENDS HERE -----
 
-}//CLASS ENDS HERE -----
+}
