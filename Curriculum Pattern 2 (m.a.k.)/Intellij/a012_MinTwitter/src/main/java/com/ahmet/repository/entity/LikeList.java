@@ -1,24 +1,24 @@
 package com.ahmet.repository.entity;
 
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "tbladdress")
-@Builder
+@Table(name = "")
+@SuperBuilder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Address {
+public class LikeList extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    String city;
-    String zipCode;
-    String number;
-    String street;
+    Long tweetid;
+    Long userid;
+    Long likeddate;
 
 }

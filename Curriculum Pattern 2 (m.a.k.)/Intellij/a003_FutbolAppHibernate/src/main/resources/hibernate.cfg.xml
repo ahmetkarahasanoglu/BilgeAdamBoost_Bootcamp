@@ -44,7 +44,7 @@ Contributor(s):
         <!-- Kullanılacak Veritabanı Sürücüsünün Adı: -->
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
         <!-- ConnectionString -->
-        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/PersonDB</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/FutbolApp</property>
         <!-- Kullanıcı Adı, Yetkili Kullanıcı        -->
         <property name="hibernate.connection.username">postgres</property>
         <!-- Şifre -->
@@ -55,7 +55,7 @@ Contributor(s):
              create : Entity'lerinize ait tüm tabloları, uygulama her başladığında tekrar tekrar oluşturur (Eskileri varsa Overwrite eder!!!).
                       DİKKAT!!! Bir uygulamada create kullanılır ise veri tabanında olan veriler tamamen silinir.
              create-drop: Her seferinde tablolar oluşturulur, uygulama kapatılırken tüm tablolar silinir. -->
-        <property name="hibernate.hbm2ddl.auto">create-drop</property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
         <!-- Hibernate bizim adımıza SQL komutlarını yazmaktadır, bu yazmakta olduğu SQL kodlarını
              konsol ekranında görebilmek için bunu aktif ederiz. -->
         <property name="hibernate.show_sql">true</property>
@@ -63,10 +63,10 @@ Contributor(s):
 
         <!-- Hibernate'in haritalayacağı tüm Java Sınıflarını belirtiyoruz:
              DİKKAT: buraya yazdığımız sınıflar '@Entity' ile işaretlenmiş olmalı. Yoksa Hibernate kullanamaz onu. -->
-        <mapping class="com.ahmet.repository.entity.Person"></mapping>
-        <mapping class="com.ahmet.repository.entity.Address"></mapping>
-        <mapping class="com.ahmet.repository.entity.Department"></mapping>
-        <mapping class="com.ahmet.repository.entity.Car"></mapping>
+        <mapping class="com.ahmet.repository.entity.Player"></mapping>
+        <mapping class="com.ahmet.repository.entity.Club"></mapping>
+        <mapping class="com.ahmet.repository.entity.League"></mapping>
+
 
 
 

@@ -44,7 +44,7 @@ Contributor(s):
         <!-- Kullanılacak Veritabanı Sürücüsünün Adı: -->
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
         <!-- ConnectionString -->
-        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/PersonDB</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/TwitterDB</property>
         <!-- Kullanıcı Adı, Yetkili Kullanıcı        -->
         <property name="hibernate.connection.username">postgres</property>
         <!-- Şifre -->
@@ -55,18 +55,20 @@ Contributor(s):
              create : Entity'lerinize ait tüm tabloları, uygulama her başladığında tekrar tekrar oluşturur (Eskileri varsa Overwrite eder!!!).
                       DİKKAT!!! Bir uygulamada create kullanılır ise veri tabanında olan veriler tamamen silinir.
              create-drop: Her seferinde tablolar oluşturulur, uygulama kapatılırken tüm tablolar silinir. -->
-        <property name="hibernate.hbm2ddl.auto">create-drop</property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
         <!-- Hibernate bizim adımıza SQL komutlarını yazmaktadır, bu yazmakta olduğu SQL kodlarını
              konsol ekranında görebilmek için bunu aktif ederiz. -->
-        <property name="hibernate.show_sql">true</property>
-        <property name="hibernate.format_sql">true</property> <!-- shows the sql statements in the output in an easily readable format. -->
+        <property name="hibernate.show_sql">false</property>
+        <property name="hibernate.format_sql">false</property> <!-- shows the sql statements in the output in an easily readable format. -->
 
         <!-- Hibernate'in haritalayacağı tüm Java Sınıflarını belirtiyoruz:
              DİKKAT: buraya yazdığımız sınıflar '@Entity' ile işaretlenmiş olmalı. Yoksa Hibernate kullanamaz onu. -->
-        <mapping class="com.ahmet.repository.entity.Person"></mapping>
-        <mapping class="com.ahmet.repository.entity.Address"></mapping>
-        <mapping class="com.ahmet.repository.entity.Department"></mapping>
-        <mapping class="com.ahmet.repository.entity.Car"></mapping>
+        <mapping class="com.ahmet.repository.entity.Comment"></mapping>
+        <mapping class="com.ahmet.repository.entity.Follow"></mapping>
+        <mapping class="com.ahmet.repository.entity.LikeList"></mapping>
+        <mapping class="com.ahmet.repository.entity.Tweet"></mapping>
+        <mapping class="com.ahmet.repository.entity.UserProfile"></mapping>
+
 
 
 
