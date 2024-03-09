@@ -6,11 +6,9 @@ import java.util.List;
 import java.util.Optional;
 
 @Getter
-public class MyFactoryService<R extends MyFactoryRepository,T,ID> implements IService<T,ID> {
-
+public class MyFactoryService<R extends MyFactoryRepository, T, ID> implements IService<T, ID> {
     R repository;
 
-    // CONSTRUCTOR:
     public MyFactoryService(R repository) {
         this.repository = repository;
     }
@@ -22,21 +20,9 @@ public class MyFactoryService<R extends MyFactoryRepository,T,ID> implements ISe
     }
 
     @Override
-    public <S extends T> Iterable<S> saveAll(Iterable<S> entities) {
-        repository.saveAll(entities);
-        return entities;
-    }
-
-    @Override
-    public <S extends T> S update(S entity) {
-        repository.update(entity);
-        return entity;
-    }
-
-    @Override
-    public <S extends T> Iterable<S> updateAll(Iterable<S> entities) {
-        repository.updateAll(entities);
-        return entities;
+    public <S extends T> Iterable<S> saveAll(Iterable<S> entites) {
+        repository.saveAll(entites);
+        return entites;
     }
 
     @Override

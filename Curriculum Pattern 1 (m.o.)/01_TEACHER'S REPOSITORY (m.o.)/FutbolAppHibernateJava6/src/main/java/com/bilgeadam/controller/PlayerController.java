@@ -1,6 +1,7 @@
 package com.bilgeadam.controller;
 
 import com.bilgeadam.repository.entity.Player;
+import com.bilgeadam.repository.entity.PlayerPositions;
 import com.bilgeadam.service.PlayerService;
 
 import java.util.List;
@@ -53,4 +54,7 @@ public class PlayerController {
 
         return playerService.findByArea(area);
     }
+
+
+
 }

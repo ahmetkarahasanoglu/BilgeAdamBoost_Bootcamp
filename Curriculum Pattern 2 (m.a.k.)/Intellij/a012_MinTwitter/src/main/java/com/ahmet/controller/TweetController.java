@@ -1,11 +1,14 @@
 package com.ahmet.controller;
 
+import com.ahmet.repository.entity.Comment;
 import com.ahmet.repository.entity.Tweet;
 import com.ahmet.repository.entity.UserProfile;
 import com.ahmet.repository.view.VwTweet;
+import com.ahmet.repository.view.VwUserProfile;
 import com.ahmet.service.*;
 import jdk.swing.interop.SwingInterOpUtils;
 
+import java.util.Map;
 import java.util.Scanner;
 
 public class TweetController {
@@ -105,34 +108,74 @@ public class TweetController {
             System.out.println("1- Görüntle");
             System.out.println("0- <<<< Geri");
             if(secim == 1) {
-                System.out.print("Hangi tweet'i görüntülemek sistersiniz?: ");
+                System.out.print("Hangi tweet'i görüntülemek istersiniz?: ");
                 int id = secim();
             }
-
         }while(secim != 0);
     }
 
     public void tweetDetail(long tweetId) {
-        VwTweet tweet = tweetService.findVwTweetById(tweetId).get();
-        System.out.println("-----------------------------------");
-        System.out.println("tweetid.........:" + tweet.getId());
-        System.out.println(tweet.getNickName() + " -> " + tweet.getUsername());
-        System.out.println();
-        System.out.println(tweet.getContent());
-        System.out.println("...................");
-        System.out.println(".                 .");
-        System.out.println(".                 .");
-        System.out.println(".     Picture     .");
-        System.out.println(".                 .");
-        System.out.println(".                 .");
-        System.out.println("...................");
-        System.out.printf("Comment[%s]  Retweet[%s]  Like[%s]  NumOfView[%s]  \n",
-                tweet.getTweetcomment(), tweet.getRetweet(), tweet.getTweetlike(), tweet.getTweetview());
-        System.out.println("-----------------------------------");
-        System.out.println();
-        System.out.println("YORUMLAR:");
-        commentService.findByTweetId(tweetId).forEach(c -> {
-
-        });
+        int secim;
+        do{
+            goruntulenmeArttir(tweetId);
+            VwTweet tweet = tweetService.findVwTweetById(tweetId).get();
+            Map<Long, VwUserProfile> userList = userProfileService.findAllVwUserList();
+            System.out.println("-----------------------------------");
+            System.out.println("tweetid.........:" + tweet.getId());
+            System.out.println(tweet.getNickName() + " -> " + tweet.getUsername());
+            System.out.println();
+            System.out.println(tweet.getContent());
+            System.out.println("...................");
+            System.out.println(".                 .");
+            System.out.println(".                 .");
+            System.out.println(".     Picture     .");
+            System.out.println(".                 .");
+            System.out.println(".                 .");
+            System.out.println("...................");
+            System.out.printf("Comment[%s]  Retweet[%s]  Like[%s]  NumOfView[%s]  \n",
+                    tweet.getTweetcomment(), tweet.getRetweet(), tweet.getTweetlike(), tweet.getTweetview());
+            System.out.println("-----------------------------------");
+            System.out.println();
+            System.out.println("YORUMLAR:");
+            commentService.findByTweetId(tweetId).forEach(c -> {
+                VwUserProfile user = userList.get(c.getUserid());
+                System.out.println(user.getUsername() + " -> " + c.getComment());
+            });
+            System.out.println("1- Yorum Yap");
+            System.out.println("2- Beğeni Yap");
+            System.out.println("0- <<<< Geri");
+            System.out.println("Seçiniz.....: ");
+            secim = secim();
+            switch(secim) {
+                case 1: yorumYap(tweetId); break;
+                case 2: break;
+            }
+        }while(secim!=0);
     }
+
+    public void yorumYap(Long tweetId) {
+        System.out.println("Yorum yaz..........: ");
+        String yorum = ifade();
+        commentService.save(Comment.builder()
+                        .userid(userProfile.getId())
+                        .comment(yorum)
+                        .tweetid(tweetId)
+                        .commentdate(System.currentTimeMillis())
+                .build());
+    }
+
+
+
+    private void goruntulenmeArttir(Long tweetID) {
+        Tweet tweet = tweetService.findById(tweetID).get();
+        tweet.setTweetview(tweet.getTweetview()+1);
+        tweetService.update(tweet);
+    }
+
+    private void yorumArttir(Long tweetID) {
+        Tweet tweet = tweetService.findById(tweetID).get();
+        tweet.setTweetcomment(tweet.getTweetcomment()+1);
+        tweetService.update(tweet);
+    }
+
 }

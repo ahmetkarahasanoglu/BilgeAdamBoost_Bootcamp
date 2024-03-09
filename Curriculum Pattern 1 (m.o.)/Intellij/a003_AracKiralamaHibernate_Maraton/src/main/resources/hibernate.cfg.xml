@@ -44,7 +44,7 @@ Contributor(s):
         <!-- Kullanılacak Veritabanı Sürücüsünün Adı: -->
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
         <!-- ConnectionString -->
-        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/usersDb</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/carDb</property>
         <!-- Kullanıcı Adı, Yetkili Kullanıcı        -->
         <property name="hibernate.connection.username">postgres</property>
         <!-- Şifre -->
@@ -64,7 +64,9 @@ Contributor(s):
         <!-- Hibernate'in haritalayacağı tüm Java Sınıflarını belirtiyoruz:
              DİKKAT: buraya yazdığımız sınıflar '@Entity' ile işaretlenmiş olmalı. Yoksa Hibernate kullanamaz onu.
               Not: bu class mapping'i HibernateUtility sınıfımızda da yapabiliyoruz. -->
-<!--        <mapping class="com.ahmet.repository.entity.User"></mapping>-->
+        <mapping class="com.ahmet.repository.entity.Arac"></mapping>
+        <mapping class="com.ahmet.repository.entity.Kiralama"></mapping>
+        <mapping class="com.ahmet.repository.entity.Kisi"></mapping>
 
 
     </session-factory>

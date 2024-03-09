@@ -37,4 +37,7 @@ public class PlayerService extends MyFactoryService<PlayerRepository, Player, Lo
 
         return getRepository().findByArea(area);
     }
+
+
+
 }

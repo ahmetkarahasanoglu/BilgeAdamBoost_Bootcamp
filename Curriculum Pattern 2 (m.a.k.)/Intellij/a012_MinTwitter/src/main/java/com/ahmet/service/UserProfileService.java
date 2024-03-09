@@ -28,16 +28,23 @@ public class UserProfileService extends MyFactoryService<UserProfileRepository, 
         return getRepository().findByUsername(username);
     }
 
+    /**
+     * Kullanıcı listesini bir hashMap içinde (Userid,View) şeklinde
+     * saklayacak; bir kullanıcıya ulaşılmak istenildiğinde buradan
+     * bilgiler çekilebilecektir.
+     * @return
+     */
     public Map<Long, VwUserProfile> findAllVwUserList() {
-        Map<Long, VwUserProfile> result = new HashMap<>();
+        Map<Long, VwUserProfile> result = new HashMap<>(); // HashMap kullanıyoruz, arama yapması çok hızlı olduğu için.
         findAll().forEach(x -> {
 //            if(result.containsKey(x.getId())) { // UserId key olarak map list'in içinde var ise
 //            }
             result.put(x.getId(), VwUserProfile.builder()
                             .name(x.getName() + " " + x.getSurname())
-
-
-                    .build())
+                            .username(x.getUsername())
+                            .userimg(x.getProfileimg())
+                    .build());
         });
+        return result;
     }
 }

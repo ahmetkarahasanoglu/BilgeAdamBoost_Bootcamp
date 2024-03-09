@@ -5,7 +5,11 @@ import com.bilgeadam.controller.LeaugeController;
 import com.bilgeadam.controller.PlayerController;
 import com.bilgeadam.repository.PlayerRepository;
 import com.bilgeadam.repository.entity.Club;
+import com.bilgeadam.repository.entity.Player;
+import com.bilgeadam.repository.entity.PlayerPositions;
 
+import javax.persistence.TypedQuery;
+import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -101,7 +105,6 @@ public class App {
     }
 
     private Club selectClub() {
-
         clubController.findAll().forEach(s -> System.out.println(s.getId() + "-" + s.getClub_name()));
         System.out.println("Lütfen klüp-idsi giriniz");
         Long id = Long.parseLong(scanner.nextLine());
@@ -113,5 +116,7 @@ public class App {
         }
         return myClub;
     }
+
+
 
 }

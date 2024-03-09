@@ -37,7 +37,7 @@ public class TweetService extends MyFactoryService<TweetRepository, Tweet, Long>
         tweetList.forEach(t -> {
             /**
              * Çok fazla maliyetli bir işlemdir (alttaki satır), tercih edilmemeli.
-             * Veri sayısı çok fazla olduğu zaman işlem çok zaman alır. Şu bir
+             * Veri sayısı çok fazla olduğu zaman işlem çok zaman alır. Su bir
              * çözüm olabilir: İşlem yapılacak tablonun gerekli sütunlarını çekip,
              * bunları bir HashMap'e atıp, bunun üzerinde arama yapmak çok daha
              * kısa zaman alır.

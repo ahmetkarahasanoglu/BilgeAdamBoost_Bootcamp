@@ -4,7 +4,7 @@ import com.ahmet.controller.UserProfileController;
 
 import java.util.Scanner;
 
-public class RunnerTwitApp {
+public class TwitterApp {
 
     public static void main(String[] args) {
 
