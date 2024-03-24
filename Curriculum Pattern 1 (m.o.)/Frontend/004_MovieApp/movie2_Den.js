@@ -5915,7 +5915,7 @@ let movies = [
 
 
 function getAllMovies2() {
-    let allMoviesDiv = document.querySelector(".allMovies");
+    let allMoviesDiv = document.querySelector(".allmovies");
     for(let el of movies) {
         let card = `<div class="card" style="width: 18rem;">
                         <img src="${el.image}" class="card-img-top" alt="Picture">
@@ -5942,3 +5942,42 @@ function getAllMovies2() {
         allMoviesDiv.innerHTML += card;
     }
 }
+
+getAllMovies2();
+
+/**
+ * Soru:Filmlerdeki genre'lerden bir liste yaratacağız; tekrarlanmayan veriler
+ * tutacağım bir liste olacak (aynı genre'yi 2 kere eklemeyeceğim.)
+ */
+function getUniqueGenresList() {
+    let uniqueGenresArr = [];
+    for(let movie of movies) {
+        movie.genres.forEach(x => {
+            if(!uniqueGenresArr.includes(x.name)) {
+                uniqueGenresArr.push(x.name);
+            }
+        })
+    }
+    console.log(uniqueGenresArr);
+    return uniqueGenresArr;
+}
+
+function printGenres() {
+    let genresArr = getUniqueGenresList();
+    let genreForm = document.querySelector(".genreForm");
+    for(let currentGenre of genresArr) {
+        let div = document.createElement("div");
+        div.classList.add("d-flex");
+        div.classList.add("justify-content-between");
+        let label = document.createElement("label");
+        label.innerHTML = `${currentGenre}`;
+        div.append(label);
+        let input = document.createElement("input");
+        input.setAttribute("type", "checkbox");
+        input.setAttribute("name", "genre");
+        input.setAttribute("value", `${currentGenre}`);
+        div.append(input);        
+        genreForm.append(div);
+    }
+}
+printGenres();

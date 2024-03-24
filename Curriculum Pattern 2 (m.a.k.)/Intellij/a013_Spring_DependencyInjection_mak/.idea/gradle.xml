@@ -8,6 +8,11 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/Java001" />
+            <option value="$PROJECT_DIR$/Java002" />
+            <option value="$PROJECT_DIR$/Java003" />
+            <option value="$PROJECT_DIR$/Java004" />
+            <option value="$PROJECT_DIR$/SpringFrameW" />
           </set>
         </option>
       </GradleProjectSettings>

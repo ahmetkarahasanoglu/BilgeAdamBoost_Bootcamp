@@ -1,0 +1,21 @@
+server:
+  port: 9090
+# DİKKAT
+# Ana başlık ile alt başlığı ayırmak için bir TAB
+# tuşu kullanmalıyız; çok dikkatli olun. Ve ':'
+# (iki nokta üst üste)den sonra bir boşluk
+# bırakılmalıdır.
+# Ve ilk başladığınız satırda tab koymayın.
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: root
+    url: jdbc:postgresql://localhost:5432/Java6MonoDB
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true

@@ -6026,7 +6026,6 @@ function printAllGenres(array) {
     `;
   });
 }
-
 printAllGenres(genres);
 
 function filterGenres() {
@@ -6042,7 +6041,7 @@ function filterGenres() {
   });
 
   movieList = movies.filter((movie) => {
-    if (movie.genres.some((g) => filterlist.includes(g.name))) {
+    if (movie.genres.some((g) => filterlist.includes(g.name))) {  // 'some' metodu çok kullanışlı burda.
       return true;
     }
   });
